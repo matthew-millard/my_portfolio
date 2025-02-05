@@ -1,0 +1,53 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Admin {
+  id        String    @id @default(cuid())
+  firstName String    @unique
+  lastName  String    @unique
+  email     String    @unique
+  password  Password?
+  session   Session[]
+}
+
+model Password {
+  hash    String
+  admin   Admin  @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  adminId String @unique
+}
+
+model Session {
+  id             String   @id @default(cuid())
+  expirationDate DateTime
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  admin          Admin    @relation(fields: [adminId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  adminId        String
+
+  @@index([adminId])
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String   @unique
+  description String
+  category    Category
+  content     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  imageUrl    String
+  altText     String
+}
+
+enum Category {
+  ALGORITHMS_AND_DATA_STRUCTURES
+  WEB_DEVELOPMENT
+  PROGRAMMING_LANGUAGES
+}
