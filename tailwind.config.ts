@@ -1,84 +1,68 @@
-import type { Config } from "tailwindcss";
+import { type Config } from "tailwindcss";
 
 export default {
-  content: ["./app/**/*.{js,jsx,ts,tsx}"],
+  content: ["./app/**/*.{ts,tsx,jsx,js}"],
+  darkMode: "class",
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       colors: {
+        border: "hsl(var(--border))",
+        input: {
+          DEFAULT: "hsl(var(--input))",
+          invalid: "hsl(var(--input-invalid))",
+        },
+        ring: {
+          DEFAULT: "hsl(var(--ring))",
+          invalid: "hsl(var(--foreground-destructive))",
+        },
+        background: "hsl(var(--background))",
+        foreground: {
+          DEFAULT: "hsl(var(--foreground))",
+          destructive: "hsl(var(--foreground-destructive))",
+        },
         primary: {
-          DEFAULT: "var(--primary-color)",
-          hover: "var(--primary-color-hover)",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
-        backdrop: {
-          DEFAULT: "var(--backdrop-color)",
-          muted: "var(--backdrop-color-muted)",
-          strong: "var(--backdrop-color-strong)",
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
-        panel: {
-          DEFAULT: "var(--panel-color)",
-          hover: "var(--panel-color-hover)",
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        color: {
-          DEFAULT: "var(--text-color)",
-          muted: "var(--text-color-muted)",
-          subtle: "var(--text-color-subtle)",
-          hover: "var(--text-color-hover)",
-          strong: "var(--text-color-strong)",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        link: {
-          DEFAULT: "var(--link-color)",
-          muted: "var(--link-color-muted)",
-          hover: "var(--link-color-hover)",
-          active: "var(--link-color-active)",
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
-        icon: {
-          DEFAULT: "var(--icon-color)",
-          muted: "var(--icon-color-muted)",
-          subtle: "var(--icon-color-subtle)",
-          hover: "var(--icon-color-hover)",
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
-        line: {
-          DEFAULT: "var(--divide-color)",
-          muted: "var(--divide-color-muted)",
-          subtle: "var(--divide-color-subtle)",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
-        edge: {
-          DEFAULT: "var(--border-color)",
-          muted: {
-            DEFAULT: "var(--border-color-muted)",
-            extra: "var(--border-color-muted-extra)",
-          },
-          subtle: "var(--border-color-subtle)",
-        },
-        error: "var(--error-color)",
-        tag: {
-          DEFAULT: "var(--tag-color)",
-          algodata: {
-            DEFAULT: "var(--tag-color-algodata)",
-            hover: "var(--tag-color-algodata-hover)",
-          },
-          webdev: {
-            DEFAULT: "var(--tag-color-webdev)",
-            hover: "var(--tag-color-webdev-hover)",
-          },
-          proglang: {
-            DEFAULT: "var(--tag-color-proglang)",
-            hover: "var(--tag-color-proglang-hover)",
-          },
-        },
-
-        // primary:
-        // primary-hover:
-        // primary-active:
-        // primary-disabled:
-
-        // secondary:
-        // secondary-hover:
-        // secondary-active:
-        // secondary-disabled:
       },
-      fontFamily: {
-        sohne: [["Sohne", "sans-serif"], { fontFeatureSettings: "ss01" }],
+      borderColor: {
+        DEFAULT: "hsl(var(--border))",
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
     },
   },
