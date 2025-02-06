@@ -7,6 +7,7 @@ import H4 from "./H4";
 import Large from "./Large";
 import Lead from "./Lead";
 import ListItem from "./ListItem";
+import Logo from "./Logo";
 import Muted from "./Muted";
 import P from "./P";
 import Small from "./Small";
@@ -26,4 +27,5 @@ export {
   Large,
   Small,
   Muted,
+  Logo,
 };
