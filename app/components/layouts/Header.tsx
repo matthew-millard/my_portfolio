@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useKbdShortcut } from "~/hooks";
 import { Logo } from "../typography";
-import { CommandTrigger, HamburgerMenuToggle } from "../ui";
+import { CommandTrigger, HamburgerMenuToggle, NavigationMenu } from "../ui";
 import ThemeSwitch from "../ui/ThemeSwitch";
 
 export default function Header() {
@@ -14,8 +14,10 @@ export default function Header() {
       <div>
         <div className="container flex h-14 items-center">
           <div className="mr-4 hidden md:flex">
-            <Logo />
-            <nav>{/* add navigation links here */}</nav>
+            <div className="mr-12">
+              <Logo />
+            </div>
+            <NavigationMenu />
           </div>
           <div className="-ml-4 mr-4 md:hidden">
             <HamburgerMenuToggle />
