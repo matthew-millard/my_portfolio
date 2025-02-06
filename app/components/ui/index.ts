@@ -1,3 +1,4 @@
+import { Button, buttonVariants } from "./Button";
 import CommandTrigger from "./CommandTrigger";
 
-export { CommandTrigger };
+export { CommandTrigger, Button, buttonVariants };
