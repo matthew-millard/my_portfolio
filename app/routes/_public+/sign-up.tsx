@@ -1,3 +1,3 @@
 export default function IndexRoute() {
-  return <main>Index route</main>;
+  return <main>Sign up route</main>;
 }
