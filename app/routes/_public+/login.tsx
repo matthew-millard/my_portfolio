@@ -1,8 +1,59 @@
+import { parseWithZod } from "@conform-to/zod";
+import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { z } from "zod";
+import { login } from "~/.server/auth";
+import { SESSION_KEY } from "~/.server/config";
+import { getSession, sessionStorage } from "~/.server/session";
 import { LoginForm } from "~/components/forms";
+import { LoginSchema } from "~/components/forms/LoginForm";
 
-export default function IndexRoute() {
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+
+  const submission = await parseWithZod(formData, {
+    async: true,
+    schema: LoginSchema.transform(async (data, ctx) => {
+      const user = await login(data);
+
+      if (!user) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Invalid username or password",
+        });
+        return z.NEVER;
+      }
+
+      return { ...data, ...user };
+    }),
+  });
+
+  if (submission.status !== "success") {
+    return json(
+      submission.reply({
+        formErrors: ["Invalid email or password."],
+        hideFields: ["password"],
+      }),
+      { status: submission.status === "error" ? 400 : 200 },
+    );
+  }
+
+  const { session, user } = submission.value;
+
+  const cookieSession = await getSession(request);
+  cookieSession.set(SESSION_KEY, session.id);
+
+  return redirect(`/${user.username}`, {
+    headers: {
+      "Set-Cookie": await sessionStorage.commitSession(cookieSession, {
+        expires: session.expirationDate, // Remember me permanently set
+      }),
+    },
+  });
+}
+
+export default function LoginRoute() {
   return (
-    <main className="flex flex-grow items-center justify-center lg:-mt-14">
+    <main className="flex flex-grow items-center justify-center">
       <LoginForm />
     </main>
   );

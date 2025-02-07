@@ -1,6 +1,9 @@
-import { Form, Link } from "@remix-run/react";
+import { getFormProps, getInputProps, useForm } from "@conform-to/react";
+import { getZodConstraint, parseWithZod } from "@conform-to/zod";
+import { Form, Link, useActionData } from "@remix-run/react";
+import { z } from "zod";
 import { classNames as cn } from "~/utils";
-import { Button, Input, Label } from "../ui";
+import { Button, FieldError, FormErrors, Input, Label } from "../ui";
 import {
   Card,
   CardContent,
@@ -9,10 +12,26 @@ import {
   CardTitle,
 } from "../ui/Card";
 
+export const LoginSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
+
 export default function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const [form, fields] = useForm({
+    id: "login-form",
+    lastResult: useActionData(),
+    constraint: getZodConstraint(LoginSchema),
+    shouldValidate: "onSubmit",
+    shouldRevalidate: "onInput",
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: LoginSchema });
+    },
+  });
+
   return (
     <div
       className={cn("flex w-full max-w-md flex-col gap-6", className)}
@@ -26,7 +45,7 @@ export default function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Form method="POST">
+          <Form method="POST" {...getFormProps(form)}>
             <div className="grid gap-6">
               <div className="flex flex-col gap-4">
                 <Button variant="outline" className="w-full">
@@ -48,24 +67,26 @@ export default function LoginForm({
                   Login with Google
                 </Button>
               </div>
-              <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-                <span className="bg-background text-muted-foreground relative z-10 px-2">
+              <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+                <span className="relative z-10 bg-background px-2 text-muted-foreground">
                   Or continue with
                 </span>
               </div>
               <div className="grid gap-6">
                 <div className="grid gap-2">
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor={fields.email.id}>Email</label>
                   <Input
-                    id="email"
-                    type="email"
+                    {...getInputProps(fields.email, {
+                      type: "email",
+                    })}
                     placeholder="name@example.com"
-                    required
+                    autoComplete="off"
                   />
+                  <FieldError field={fields.email} />
                 </div>
-                <div className="grid gap-2">
+                <div className="-mt-1 grid gap-2">
                   <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor={fields.password.id}>Password</Label>
                     <Link
                       to="/forgot-password"
                       className="ml-auto text-sm underline-offset-4 hover:underline"
@@ -73,17 +94,23 @@ export default function LoginForm({
                       Forgot your password?
                     </Link>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input
+                    {...getInputProps(fields.password, { type: "password" })}
+                  />
+                  <FieldError field={fields.password} />
                 </div>
-                <Button type="submit" className="w-full">
+              </div>
+              <div className="grid gap-3">
+                <Button type="submit" className="-mt-1 w-full">
                   Login
                 </Button>
-              </div>
-              <div className="text-center text-sm">
-                Don&apos;t have an account?{" "}
-                <Link to="/sign-up" className="underline underline-offset-4">
-                  Sign up
-                </Link>
+                <FormErrors errors={form.errors} errorId={form.errorId} />
+                <div className="text-center text-sm">
+                  Don&apos;t have an account?{" "}
+                  <Link to="/sign-up" className="underline underline-offset-4">
+                    Sign up
+                  </Link>
+                </div>
               </div>
             </div>
           </Form>

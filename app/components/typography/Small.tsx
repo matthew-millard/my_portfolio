@@ -1,4 +1,4 @@
-interface SmallProps extends React.ComponentPropsWithoutRef<"small"> {
+export interface SmallProps extends React.ComponentPropsWithoutRef<"small"> {
   children: string;
 }
 

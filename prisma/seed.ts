@@ -1,6 +1,5 @@
 import { prisma } from "~/.server/db";
-import { ENV } from "~/env";
-import { hashPassword } from "~/utils";
+import { hashPassword } from "~/utils/";
 
 async function seed(): Promise<void> {
   console.log("Seeding database...");
@@ -8,23 +7,24 @@ async function seed(): Promise<void> {
 
   try {
     console.time("Cleaning database");
-    await prisma.admin.deleteMany();
+    await prisma.user.deleteMany();
     console.timeEnd("Cleaning database");
 
-    console.time("Created admin user");
-    await prisma.admin.create({
+    console.time("Created user");
+    await prisma.user.create({
       data: {
-        firstName: ENV.ADMIN_FIRSTNAME,
-        lastName: ENV.ADMIN_LASTNAME,
-        email: ENV.ADMIN_EMAIL,
+        firstName: "Matt",
+        lastName: "Millard",
+        username: "mattmillard",
+        email: "matt.millard@gmail.com",
         password: {
           create: {
-            hash: hashPassword(ENV.ADMIN_PASSWORD),
+            hash: hashPassword("Password123!"),
           },
         },
       },
     });
-    console.timeEnd("Created admin user");
+    console.timeEnd("Created user");
 
     console.log("Database seeded successfully!");
   } catch (error) {
