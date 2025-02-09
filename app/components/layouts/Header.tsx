@@ -1,7 +1,7 @@
 import { NavLink } from "@remix-run/react";
 import { useState } from "react";
-import { useKbdShortcut } from "~/hooks";
-import { classNames } from "~/utils";
+import { useKbdShortcut, useOptionalUser } from "~/hooks";
+import { classNames, formatInitials } from "~/utils";
 import { LogoutForm } from "../forms";
 import { Logo } from "../typography";
 import {
@@ -21,6 +21,7 @@ export const navLinks = [
 ];
 
 export default function Header() {
+  const user = useOptionalUser();
   const [isCommandDialogOpen, setIsCommandDialogOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -63,8 +64,23 @@ export default function Header() {
           <CommandTrigger {...commandTriggerProps} />
           <nav className="hidden items-center gap-x-2 md:flex">
             <Avatar>
-              <AvatarImage src="https://github.com/shadcn.png" />
-              <AvatarFallback>MM</AvatarFallback>
+              <AvatarImage />
+              <AvatarFallback>
+                {user ? (
+                  formatInitials({
+                    firstName: user?.firstName,
+                    lastName: user?.lastName,
+                  })
+                ) : (
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    className="size-full text-muted-foreground"
+                  >
+                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                )}
+              </AvatarFallback>
             </Avatar>
             <LogoutForm />
           </nav>
