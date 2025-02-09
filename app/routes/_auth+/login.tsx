@@ -64,7 +64,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function LoginRoute() {
   return (
-    <main className="flex flex-grow justify-center sm:-mt-14 sm:items-center">
+    <main className="flex flex-grow justify-center sm:items-center">
       <LoginForm />
     </main>
   );

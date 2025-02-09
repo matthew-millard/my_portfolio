@@ -25,43 +25,41 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="">
-        <div className="container flex h-14 items-center">
-          <div className="mr-4 hidden md:flex">
-            <div className="mr-12">
-              <Logo />
-            </div>
-            <nav className="flex items-center gap-4 text-sm xl:gap-6">
-              {navLinks.map((link) => (
-                <NavLink
-                  to={link.href}
-                  key={link.title}
-                  prefetch="intent"
-                  className={({ isActive }) =>
-                    classNames(
-                      "text-foreground transition-colors hover:text-foreground/80",
-                      isActive
-                        ? "underline decoration-primary underline-offset-4 hover:decoration-primary/80"
-                        : "",
-                    )
-                  }
-                >
-                  {link.title}
-                </NavLink>
-              ))}
-            </nav>
+      <div className="container flex h-14 items-center">
+        <div className="mr-4 hidden md:flex">
+          <div className="mr-12">
+            <Logo />
           </div>
-          <div className="-ml-4 mr-4 md:hidden">
-            <HamburgerMenuToggle {...drawerProps} />
-            <Drawer {...drawerProps} />
-          </div>
-          <div className="flex flex-1 items-center justify-between gap-2 md:justify-end">
-            <CommandTrigger {...commandTriggerProps} />
-            <nav className="flex items-center gap-0.5">
-              <ThemeSwitch />
-            </nav>
-            <LogoutForm />
-          </div>
+          <nav className="flex items-center gap-4 text-sm xl:gap-6">
+            {navLinks.map((link) => (
+              <NavLink
+                to={link.href}
+                key={link.title}
+                prefetch="intent"
+                className={({ isActive }) =>
+                  classNames(
+                    "text-foreground transition-colors hover:text-foreground/80",
+                    isActive
+                      ? "underline decoration-primary underline-offset-4 hover:decoration-primary/80"
+                      : "",
+                  )
+                }
+              >
+                {link.title}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+        <div className="-ml-4 mr-4 md:hidden">
+          <HamburgerMenuToggle {...drawerProps} />
+          <Drawer {...drawerProps} />
+        </div>
+        <div className="flex flex-1 items-center justify-between gap-2 md:justify-end">
+          <CommandTrigger {...commandTriggerProps} />
+          <nav className="flex items-center gap-0.5">
+            <ThemeSwitch />
+          </nav>
+          <LogoutForm />
         </div>
       </div>
     </header>

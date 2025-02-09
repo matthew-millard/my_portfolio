@@ -14,6 +14,8 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import stylesheet from "~/tailwind.css";
+import { getUserId } from "./.server/auth";
+import { prisma } from "./.server/db";
 import { getThemeFromCookie, updateTheme } from "./.server/theme";
 import {
   updateThemeActionIntent,
@@ -40,9 +42,26 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const theme = getThemeFromCookie(request);
+  const userId = await getUserId(request);
+
+  const user = userId
+    ? await prisma.user.findUniqueOrThrow({
+        where: {
+          id: userId,
+        },
+        select: {
+          id: true,
+          email: true,
+          username: true,
+          firstName: true,
+          lastName: true,
+        },
+      })
+    : null;
 
   const data = {
     theme: theme as Theme,
+    user,
   };
 
   return json(data);
@@ -59,7 +78,7 @@ function App() {
 function Document({ children }: { children: React.ReactNode }) {
   const theme = useTheme();
   return (
-    <html lang="en" className={`${theme} text-foreground bg-background`}>
+    <html lang="en" className={`${theme} bg-background text-foreground`}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
