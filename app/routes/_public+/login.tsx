@@ -53,7 +53,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
 export default function LoginRoute() {
   return (
-    <main className="flex flex-grow items-center justify-center">
+    <main className="flex flex-grow justify-center sm:-mt-14 sm:items-center">
       <LoginForm />
     </main>
   );
