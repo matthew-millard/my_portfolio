@@ -1,3 +1,4 @@
 import LoginForm from "./LoginForm";
+import LogoutForm from "./LogoutForm";
 
-export { LoginForm };
+export { LoginForm, LogoutForm };
