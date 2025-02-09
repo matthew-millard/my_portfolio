@@ -2,6 +2,7 @@ import { NavLink } from "@remix-run/react";
 import { useState } from "react";
 import { useKbdShortcut } from "~/hooks";
 import { classNames } from "~/utils";
+import { LogoutForm } from "../forms";
 import { Logo } from "../typography";
 import { CommandTrigger, HamburgerMenuToggle } from "../ui";
 import ThemeSwitch from "../ui/ThemeSwitch";
@@ -23,8 +24,8 @@ export default function Header() {
   const drawerProps = { isDrawerOpen, setIsDrawerOpen };
 
   return (
-    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
-      <div>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="">
         <div className="container flex h-14 items-center">
           <div className="mr-4 hidden md:flex">
             <div className="mr-12">
@@ -38,9 +39,9 @@ export default function Header() {
                   prefetch="intent"
                   className={({ isActive }) =>
                     classNames(
-                      "hover:text-foreground/80 text-foreground transition-colors",
+                      "text-foreground transition-colors hover:text-foreground/80",
                       isActive
-                        ? "hover:decoration-primary/80 underline decoration-primary underline-offset-4"
+                        ? "underline decoration-primary underline-offset-4 hover:decoration-primary/80"
                         : "",
                     )
                   }
@@ -59,6 +60,7 @@ export default function Header() {
             <nav className="flex items-center gap-0.5">
               <ThemeSwitch />
             </nav>
+            <LogoutForm />
           </div>
         </div>
       </div>

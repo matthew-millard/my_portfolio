@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { requireUserId } from "~/.server/auth";
-import { P } from "~/components/typography";
+// import { P } from "~/components/typography";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   await requireUserId(request);
@@ -10,7 +10,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function IndexRoute() {
   return (
     <div className="grid min-h-dvh grid-cols-1 grid-rows-[1fr_1px_auto_1px_auto] lg:grid-cols-[288px_2.5rem_minmax(0,1fr)_2.5rem]">
-      <div className="col-start-1 row-span-full row-start-1 max-lg:hidden">
+      {/* <div className="col-start-1 row-span-full row-start-1 max-lg:hidden">
         <P>Left aside</P>
       </div>
 
@@ -24,7 +24,7 @@ export default function IndexRoute() {
         </div>
       </div>
 
-      <div className="col-start-4 row-span-5 row-start-1 w-10 border-x max-lg:hidden"></div>
+      <div className="col-start-4 row-span-5 row-start-1 w-10 border-x max-lg:hidden"></div> */}
     </div>
   );
 }
