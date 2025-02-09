@@ -36,6 +36,7 @@
     "@isaacs/express-prometheus-middleware": "^1.2.1",
     "@js-temporal/polyfill": "^0.4.4",
     "@prisma/client": "^5.20.0",
+    "@radix-ui/react-avatar": "^1.1.3",
     "@radix-ui/react-icons": "^1.3.2",
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-navigation-menu": "^1.2.5",

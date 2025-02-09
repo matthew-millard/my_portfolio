@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { Link, Outlet } from "@remix-run/react";
 import { useState } from "react";
-import { Drawer } from "~/components/layouts";
+import { Drawer, Footer } from "~/components/layouts";
 import { Logo } from "~/components/typography";
 import { Button, HamburgerMenuToggle } from "~/components/ui";
 
@@ -23,7 +23,7 @@ export default function PublicLayout() {
           </div>
 
           {/* Desktop */}
-          <div className="hidden gap-x-2 md:flex">
+          <nav className="hidden items-center gap-x-2 md:flex">
             <Link to="/sign-up" prefetch="intent">
               <Button>Sign up</Button>
             </Link>
@@ -32,10 +32,13 @@ export default function PublicLayout() {
                 Log in <ArrowRightIcon />{" "}
               </Button>
             </Link>
-          </div>
+          </nav>
         </div>
       </header>
-      <Outlet />
+      <div className="flex-grow">
+        <Outlet />
+      </div>
+      <Footer />
     </div>
   );
 }

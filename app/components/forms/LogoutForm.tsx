@@ -5,7 +5,7 @@ import { Button } from "../ui";
 export default function LogoutForm() {
   return (
     <Form method="POST" action="/logout">
-      <Button variant="ghost" size="sm">
+      <Button variant="secondary" size="sm">
         <ExitIcon />
         Log out
       </Button>

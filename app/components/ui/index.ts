@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "./Avatar";
 import { Button, buttonVariants } from "./Button";
 import CommandTrigger from "./CommandTrigger";
 import FieldError from "./FieldError";
@@ -15,4 +16,7 @@ export {
   Label,
   FieldError,
   FormErrors,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
 };

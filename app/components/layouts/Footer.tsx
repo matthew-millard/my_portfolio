@@ -1,9 +1,11 @@
-import { P } from "../typography";
+import ThemeSwitch from "../ui/ThemeSwitch";
 
 export default function Footer() {
   return (
-    <footer className="flex h-14 items-center justify-center border-t">
-      <P>Footer</P>
+    <footer className="hidden h-14 items-center justify-center border-t md:flex">
+      <div className="container flex justify-end">
+        <ThemeSwitch />
+      </div>
     </footer>
   );
 }
