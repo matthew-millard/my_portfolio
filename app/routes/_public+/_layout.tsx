@@ -35,9 +35,9 @@ export default function PublicLayout() {
           </nav>
         </div>
       </header>
-      <div className="flex-grow">
-        <Outlet />
-      </div>
+
+      <Outlet />
+
       <Footer />
     </div>
   );
