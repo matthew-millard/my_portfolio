@@ -1,4 +1,11 @@
+import { LoaderFunctionArgs } from "@remix-run/node";
+import { requireUserId } from "~/.server/auth";
 import { P } from "~/components/typography";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  await requireUserId(request);
+  return null;
+}
 
 export default function IndexRoute() {
   return (

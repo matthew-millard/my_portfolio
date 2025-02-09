@@ -1,13 +1,19 @@
 import { parseWithZod } from "@conform-to/zod";
-import { ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import {
+  ActionFunctionArgs,
+  json,
+  LoaderFunctionArgs,
+  redirect,
+} from "@remix-run/node";
 import { z } from "zod";
-import { login } from "~/.server/auth";
+import { login, requireAnonymous } from "~/.server/auth";
 import { SESSION_KEY } from "~/.server/config";
 import { getSession, sessionStorage } from "~/.server/session";
 import { LoginForm } from "~/components/forms";
 import { LoginSchema } from "~/components/forms/LoginForm";
 
 export async function action({ request }: ActionFunctionArgs) {
+  await requireAnonymous(request);
   const formData = await request.formData();
 
   const submission = await parseWithZod(formData, {
@@ -49,6 +55,11 @@ export async function action({ request }: ActionFunctionArgs) {
       }),
     },
   });
+}
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  await requireAnonymous(request);
+  return null;
 }
 
 export default function LoginRoute() {
