@@ -2,13 +2,15 @@ import { Link } from "@remix-run/react";
 
 export default function Logo() {
   return (
-    <Link to="/" className="group inline-flex leading-none" prefetch="intent">
-      <span className="font-light transition-transform duration-300 ease-in-out group-hover:-skew-x-12 group-hover:text-primary">
-        Not
+    <Link
+      to="/"
+      prefetch="intent"
+      className="group inline-flex items-baseline leading-none"
+    >
+      <span className="text-base font-semibold group-hover:text-primary">
+        Notely
       </span>
-      <span className="font-semibold transition-transform duration-300 ease-in-out group-hover:-skew-x-12 group-hover:text-primary">
-        ably
-      </span>
+      <span className="ml-1 text-xl">🐘</span>
     </Link>
   );
 }
