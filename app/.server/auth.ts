@@ -1,6 +1,9 @@
 import type { Password, User } from "@prisma/client";
 import { prisma } from "./db";
 import bcrypt from "bcryptjs";
+import { getSession, sessionStorage } from "./session";
+import { SESSION_KEY } from "./config";
+import { redirect } from "react-router";
 
 interface AuthCredentials {
   email: User["email"];
@@ -53,4 +56,68 @@ export async function login({ email, password }: AuthCredentials) {
   });
 
   return { session, user };
+}
+
+export async function logout(request: Request) {
+  const cookieSession = await getSession(request);
+  const sessionId = cookieSession.get(SESSION_KEY);
+
+  void prisma.session
+    .delete({
+      where: {
+        id: sessionId,
+      },
+    })
+    .catch(() => {});
+
+  throw redirect("/", {
+    headers: {
+      "Set-Cookie": await sessionStorage.destroySession(cookieSession),
+    },
+  });
+}
+
+export async function requireAnonymous(request: Request) {
+  const userId = await getUserId(request);
+
+  if (userId) {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+      select: {
+        username: true,
+      },
+    });
+
+    throw redirect(`/${user?.username}`);
+  }
+}
+
+export async function requireUserId(request: Request) {
+  const userId = await getUserId(request);
+
+  if (!userId) {
+    throw redirect("/login");
+  }
+
+  return userId;
+}
+
+export async function getUserId(request: Request) {
+  const cookieSession = await getSession(request);
+  const sessionId = cookieSession.get(SESSION_KEY);
+
+  if (!sessionId) return null;
+
+  const session = await prisma.session.findUnique({
+    where: { id: sessionId },
+    select: { userId: true },
+  });
+
+  if (!session) {
+    throw await logout(request);
+  }
+
+  return session.userId;
 }

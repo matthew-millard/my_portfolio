@@ -116,11 +116,6 @@ export default function LoginForm({
           </Form>
         </CardContent>
       </Card>
-      {/* <div className="text-muted-foreground text-balance text-center text-xs [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary">
-        By clicking continue, you agree to our{" "}
-        <Link to="/terms-of-service">Terms of Service</Link> and{" "}
-        <Link to="/privacy-policy">Privacy Policy</Link>.
-      </div> */}
     </div>
   );
 }
