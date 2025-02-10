@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "../ui/Card";
 
-const SignUpSchema = z.object({
+export const SignUpSchema = z.object({
   email: EmailSchema,
 });
 
