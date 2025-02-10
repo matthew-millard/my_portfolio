@@ -2,7 +2,7 @@ import { NavLink } from "@remix-run/react";
 import { useState } from "react";
 import { useKbdShortcut, useOptionalUser } from "~/hooks";
 import { classNames, formatInitials } from "~/utils";
-import { LogoutForm } from "../forms";
+import { LogOutForm } from "../forms";
 import { Logo } from "../typography";
 import {
   Avatar,
@@ -82,7 +82,7 @@ export default function Header() {
                 )}
               </AvatarFallback>
             </Avatar>
-            <LogoutForm />
+            <LogOutForm />
           </nav>
         </div>
       </div>
