@@ -31,6 +31,7 @@
   "dependencies": {
     "@conform-to/react": "^1.2.2",
     "@conform-to/zod": "^1.2.2",
+    "@epic-web/totp": "^2.1.1",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@isaacs/express-prometheus-middleware": "^1.2.1",

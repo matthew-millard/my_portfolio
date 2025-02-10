@@ -74,7 +74,7 @@ export default function LoginForm({
               </div>
               <div className="grid gap-6">
                 <div className="grid gap-2">
-                  <label htmlFor={fields.email.id}>Email</label>
+                  <Label htmlFor={fields.email.id}>Email</Label>
                   <Input
                     {...getInputProps(fields.email, {
                       type: "email",

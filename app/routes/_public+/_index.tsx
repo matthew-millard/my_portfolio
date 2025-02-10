@@ -23,11 +23,9 @@ export default function IndexRoute() {
           </Lead>
           <div className="mt-6">
             <P>
-              Whether you&apos;re jotting down a quick thought, planning your
-              next big project, or collaborating with others, Notely makes it
-              easy to keep everything in one place. Enjoy seamless
-              synchronization across devices, a clean and intuitive interface,
-              and peace of mind knowing your ideas are always within reach.
+              Enjoy seamless synchronization across devices, a clean and
+              intuitive interface, and peace of mind knowing your ideas are
+              always within reach.
             </P>
           </div>
           <div className="mt-10">
